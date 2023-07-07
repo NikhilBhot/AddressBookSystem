@@ -68,6 +68,9 @@ namespace AddressBookSystem
             }
         }
 
+        /*
+         *Ability to delete  person using person's name - Use Console to delete a person
+         */
         public void DeleteContact(string firstName, string lastName)
         {
             Contact contact = FindContact(firstName, lastName);
