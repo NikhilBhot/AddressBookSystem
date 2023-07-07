@@ -41,5 +41,36 @@ namespace AddressBookSystem
                 contact.Display();
             }
         }
+        //Ability to edit existing contact person using their name
+        public void EditContact(string firstName, string lastName)
+        {
+            Contact contact = FindContact(firstName, lastName);
+            if (contact != null)
+            {
+                Console.WriteLine("Enter new details for the contact:");
+                Console.Write("Enter Address: ");
+                contact.Address = Console.ReadLine();
+                Console.Write("Enter City: ");
+                contact.City = Console.ReadLine();
+                Console.Write("Enter State: ");
+                contact.State = Console.ReadLine();
+                Console.Write("Enter Zip: ");
+                contact.Zip = Console.ReadLine();
+                Console.Write("Enter Phone Number: ");
+                contact.PhoneNumber = Console.ReadLine();
+                Console.Write("Enter Email: ");
+                contact.Email = Console.ReadLine();
+                Console.WriteLine("Contact updated successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Contact not found.");
+            }
+        }
+
+        private Contact FindContact(string firstName, string lastName)
+        {
+            return contacts.Find(c => c.FirstName == firstName && c.LastName == lastName);
+        }
     }
 }
