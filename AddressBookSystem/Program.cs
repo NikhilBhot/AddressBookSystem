@@ -20,7 +20,8 @@ namespace AddressBookSystem
                 Console.WriteLine("1. Add Contact");
                 Console.WriteLine("2. Display Contacts");
                 Console.WriteLine("3. Edit Contact");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("4. Delete Contact");
+                Console.WriteLine("5. Exit");
                 Console.Write("Enter your choice: ");
                 string choice = Console.ReadLine();
 
@@ -61,6 +62,14 @@ namespace AddressBookSystem
                         break;
 
                     case "4":
+                        Console.Write("Enter First Name of the contact to delete: ");
+                        string deleteFirstName = Console.ReadLine();
+                        Console.Write("Enter Last Name of the contact to delete: ");
+                        string deleteLastName = Console.ReadLine();
+                        addressBook.DeleteContact(deleteFirstName, deleteLastName);
+                        break;
+
+                    case "5":
                         Environment.Exit(0);
                         break;
 
