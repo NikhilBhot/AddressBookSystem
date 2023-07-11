@@ -44,5 +44,22 @@ namespace AddressBookSystem
             Console.WriteLine($"Email: {Email}");
             Console.WriteLine();
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            Contact other = (Contact)obj;
+            return string.Equals(FirstName, other.FirstName, StringComparison.OrdinalIgnoreCase) &&
+                   string.Equals(LastName, other.LastName, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(FirstName.ToLower(), LastName.ToLower());
+        }
     }
 }

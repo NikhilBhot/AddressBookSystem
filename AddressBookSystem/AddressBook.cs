@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,8 +25,19 @@ namespace AddressBookSystem
         */
         public void AddContact(Contact contact)
         {
-            contacts.Add(contact);
-            Console.WriteLine("Contact added successfully.");
+            /*Ability to ensure there is no Duplicate Entry of the same Person in a particular Address Book 
+            - Duplicate Check is done on Person Name while adding person to Address Book.
+            -Use Collection Methods to Search Person by Name for Duplicate Entry
+            - Override equals method to check for Duplicate */
+            if (contacts.Contains(contact))
+            {
+                Console.WriteLine("Duplicate contact found. Contact not added.");
+            }
+            else
+            {
+                contacts.Add(contact);
+                Console.WriteLine("Contact added successfully.");
+            }
         }
 
         public void DisplayContacts()
