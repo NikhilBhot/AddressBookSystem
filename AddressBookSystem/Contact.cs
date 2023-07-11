@@ -61,5 +61,15 @@ namespace AddressBookSystem
         {
             return HashCode.Combine(FirstName.ToLower(), LastName.ToLower());
         }
+
+        public bool MatchesCity(string city)
+        {
+            return string.Equals(City, city, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public bool MatchesState(string state)
+        {
+            return string.Equals(State, state, StringComparison.OrdinalIgnoreCase);
+        }
     }
 }

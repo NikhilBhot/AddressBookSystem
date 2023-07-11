@@ -21,7 +21,9 @@ namespace AddressBookSystem
                 Console.WriteLine("Address Book Menu:");
                 Console.WriteLine("1. Add Address Book");
                 Console.WriteLine("2. Select Address Book");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("3. Search Contacts by City");
+                Console.WriteLine("4. Search Contacts by State");
+                Console.WriteLine("5. Exit");
                 Console.Write("Enter your choice: ");
                 string choice = Console.ReadLine();
 
@@ -56,6 +58,18 @@ namespace AddressBookSystem
                         break;
 
                     case "3":
+                        Console.Write("Enter City to search: ");
+                        string searchCity = Console.ReadLine();
+                        SearchContactsByCity(searchCity);
+                        break;
+
+                    case "4":
+                        Console.Write("Enter State to search: ");
+                        string searchState = Console.ReadLine();
+                        SearchContactsByState(searchState);
+                        break;
+
+                    case "5":
                         Environment.Exit(0);
                         break;
 
@@ -143,6 +157,49 @@ namespace AddressBookSystem
                     default:
                         Console.WriteLine("Invalid choice. Please try again.");
                         break;
+                }
+            }
+        }
+        static void SearchContactsByCity(string city)
+        {
+            List<Contact> searchResults = new List<Contact>();
+            foreach (var addressBook in addressBooks.Values)
+            {
+                searchResults.AddRange(addressBook.SearchByCity(city));
+            }
+
+            if (searchResults.Count == 0)
+            {
+                Console.WriteLine("No contacts found in the specified city.");
+            }
+            else
+            {
+                Console.WriteLine($"Contacts in {city}:");
+                foreach (var contact in searchResults)
+                {
+                    contact.Display();
+                }
+            }
+        }
+
+        static void SearchContactsByState(string state)
+        {
+            List<Contact> searchResults = new List<Contact>();
+            foreach (var addressBook in addressBooks.Values)
+            {
+                searchResults.AddRange(addressBook.SearchByState(state));
+            }
+
+            if (searchResults.Count == 0)
+            {
+                Console.WriteLine("No contacts found in the specified state.");
+            }
+            else
+            {
+                Console.WriteLine($"Contacts in {state}:");
+                foreach (var contact in searchResults)
+                {
+                    contact.Display();
                 }
             }
         }

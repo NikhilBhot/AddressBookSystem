@@ -102,5 +102,35 @@ namespace AddressBookSystem
         {
             return contacts.Find(c => c.FirstName == firstName && c.LastName == lastName);
         }
+
+        public List<Contact> SearchByCity(string city)
+        {
+            List<Contact> searchResults = new List<Contact>();
+            foreach (var contact in contacts)
+            {
+                if (contact.MatchesCity(city))
+                {
+                    searchResults.Add(contact);
+                }
+            }
+            return searchResults;
+        }
+
+        /*
+            Ability to search Person in a City or State across the multiple Address Book 
+                - Search Result can show multiple person in the city or state
+         */
+        public List<Contact> SearchByState(string state)
+        {
+            List<Contact> searchResults = new List<Contact>();
+            foreach (var contact in contacts)
+            {
+                if (contact.MatchesState(state))
+                {
+                    searchResults.Add(contact);
+                }
+            }
+            return searchResults;
+        }
     }
 }
