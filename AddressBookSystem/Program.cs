@@ -4,10 +4,72 @@ namespace AddressBookSystem
 {
     public class Program
     {
-        static void Main(string[] args)
+        /*Refactor to add multiple Address Book to the System. Each Address Book has a unique Name 
+            - Use Console to add new Address Book
+         */
+        private static Dictionary<string, AddressBook> addressBooks;
+
+        static Program()
         {
-            Console.WriteLine("Wel-Come To Address Book System");
-            AddressBook addressBook = new AddressBook();
+            addressBooks = new Dictionary<string, AddressBook>();
+        }
+
+        static void Main()
+        {
+            while (true)
+            {
+                Console.WriteLine("Address Book Menu:");
+                Console.WriteLine("1. Add Address Book");
+                Console.WriteLine("2. Select Address Book");
+                Console.WriteLine("3. Exit");
+                Console.Write("Enter your choice: ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        Console.Write("Enter Address Book Name: ");
+                        string addressBookName = Console.ReadLine();
+                        if (addressBooks.ContainsKey(addressBookName))
+                        {
+                            Console.WriteLine($"Address Book '{addressBookName}' already exists.");
+                        }
+                        else
+                        {
+                            AddressBook newAddressBook = new AddressBook();
+                            addressBooks.Add(addressBookName, newAddressBook);
+                            Console.WriteLine($"Address Book '{addressBookName}' created successfully.");
+                        }
+                        break;
+
+                    case "2":
+                        Console.Write("Enter Address Book Name: ");
+                        string selectedAddressBookName = Console.ReadLine();
+                        if (addressBooks.TryGetValue(selectedAddressBookName, out AddressBook selectedAddressBook))
+                        {
+                            ManageAddressBook(selectedAddressBook);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Address Book '{selectedAddressBookName}' does not exist.");
+                        }
+                        break;
+
+                    case "3":
+                        Environment.Exit(0);
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
+            }
+        }
+
+        static void ManageAddressBook(AddressBook addressBook)
+        {
+            //Console.WriteLine("Wel-Come To Address Book System");
+            //AddressBook addressBook = new AddressBook();
 
             while (true)
             {
@@ -22,6 +84,7 @@ namespace AddressBookSystem
                 Console.WriteLine("3. Edit Contact");
                 Console.WriteLine("4. Delete Contact");
                 Console.WriteLine("5. Exit");
+                Console.WriteLine("6.Reurn To Add AddressBook Or Select Address Book");
                 Console.Write("Enter your choice: ");
                 string choice = Console.ReadLine();
 
@@ -71,6 +134,10 @@ namespace AddressBookSystem
 
                     case "5":
                         Environment.Exit(0);
+                        
+                        break;
+                    case "6":
+                        Main();
                         break;
 
                     default:
