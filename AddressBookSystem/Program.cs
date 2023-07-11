@@ -25,7 +25,8 @@ namespace AddressBookSystem
                 Console.WriteLine("4. Search Contacts by State");
                 Console.WriteLine("5. Get Contact Count by City");
                 Console.WriteLine("6. Get Contact Count by State");
-                Console.WriteLine("7. Exit");
+                Console.WriteLine("7. Sort Contacts by Name");
+                Console.WriteLine("8. Exit");
                 Console.Write("Enter your choice: ");
                 string choice = Console.ReadLine();
 
@@ -84,6 +85,12 @@ namespace AddressBookSystem
                         break;
 
                     case "7":
+                        Console.Write("Enter Address Book Name to sort contacts: ");
+                        string sortAddressBookName = Console.ReadLine();
+                        SortContactsByName(sortAddressBookName);
+                        break;
+
+                    case "8":
                         Environment.Exit(0);
                         break;
 
@@ -258,6 +265,23 @@ namespace AddressBookSystem
                 totalContactCount += contactCount;
             }
             Console.WriteLine($"Total contacts in {state}: {totalContactCount}");
+        }
+        /*Ability to sort the entries in the address book alphabetically by Person’s name
+            - Use Console to sort person details by name
+            - Use Collection Library for Sorting
+            - Override toString method to finally Print Person Entry in Concole
+         */
+        static void SortContactsByName(string addressBookName)
+        {
+            if (addressBooks.TryGetValue(addressBookName, out AddressBook addressBook))
+            {
+                addressBook.SortContactsByName();
+                Console.WriteLine($"Contacts in Address Book '{addressBookName}' sorted by name.");
+            }
+            else
+            {
+                Console.WriteLine($"Address Book '{addressBookName}' does not exist.");
+            }
         }
     }
 }

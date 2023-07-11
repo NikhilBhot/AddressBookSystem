@@ -202,5 +202,21 @@ namespace AddressBookSystem
                 return 0;
             }
         }
+
+        public void SortContactsByName()
+        {
+            contacts.Sort();
+        }
+
+        public override string ToString()
+        {
+            // Return a string representation of all the contacts in the address book
+            string result = string.Empty;
+            foreach (var contact in contacts)
+            {
+                result += contact.ToString();
+            }
+            return result;
+        }
     }
 }
