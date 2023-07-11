@@ -23,7 +23,9 @@ namespace AddressBookSystem
                 Console.WriteLine("2. Select Address Book");
                 Console.WriteLine("3. Search Contacts by City");
                 Console.WriteLine("4. Search Contacts by State");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("5. Get Contact Count by City");
+                Console.WriteLine("6. Get Contact Count by State");
+                Console.WriteLine("7. Exit");
                 Console.Write("Enter your choice: ");
                 string choice = Console.ReadLine();
 
@@ -70,6 +72,18 @@ namespace AddressBookSystem
                         break;
 
                     case "5":
+                        Console.Write("Enter City to get contact count: ");
+                        string countCity = Console.ReadLine();
+                        GetContactCountByCity(countCity);
+                        break;
+
+                    case "6":
+                        Console.Write("Enter State to get contact count: ");
+                        string countState = Console.ReadLine();
+                        GetContactCountByState(countState);
+                        break;
+
+                    case "7":
                         Environment.Exit(0);
                         break;
 
@@ -217,6 +231,33 @@ namespace AddressBookSystem
             {
                 addressBook.DisplayContactsByState(state);
             }
+        }
+        /*
+         * Ability to get number of contact persons
+            i.e. count by City or State - Search Result will show count by city and by state
+         */
+        static void GetContactCountByCity(string city)
+        {
+            int totalContactCount = 0;
+            foreach (var addressBook in addressBooks.Values)
+            {
+                int contactCount = addressBook.GetContactCountByCity(city);
+                Console.WriteLine($"Contacts in {city} ({contactCount})");
+                totalContactCount += contactCount;
+            }
+            Console.WriteLine($"Total contacts in {city}: {totalContactCount}");
+        }
+
+        static void GetContactCountByState(string state)
+        {
+            int totalContactCount = 0;
+            foreach (var addressBook in addressBooks.Values)
+            {
+                int contactCount = addressBook.GetContactCountByState(state);
+                Console.WriteLine($"Contacts in {state} ({contactCount})");
+                totalContactCount += contactCount;
+            }
+            Console.WriteLine($"Total contacts in {state}: {totalContactCount}");
         }
     }
 }

@@ -176,5 +176,31 @@ namespace AddressBookSystem
             }
             return searchResults;
         }
+
+        public int GetContactCountByCity(string city)
+        {
+            if (cityDictionary.ContainsKey(city))
+            {
+                List<Contact> contactsInCity = cityDictionary[city];
+                return contactsInCity.Count;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public int GetContactCountByState(string state)
+        {
+            if (stateDictionary.ContainsKey(state))
+            {
+                List<Contact> contactsInState = stateDictionary[state];
+                return contactsInState.Count;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }
