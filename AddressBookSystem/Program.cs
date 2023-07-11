@@ -203,5 +203,20 @@ namespace AddressBookSystem
                 }
             }
         }
+        static void DisplayContactsByCity(string city)
+        {
+            foreach (var addressBook in addressBooks.Values)
+            {
+                addressBook.DisplayContactsByCity(city);
+            }
+        }
+
+        static void DisplayContactsByState(string state)
+        {
+            foreach (var addressBook in addressBooks.Values)
+            {
+                addressBook.DisplayContactsByState(state);
+            }
+        }
     }
 }

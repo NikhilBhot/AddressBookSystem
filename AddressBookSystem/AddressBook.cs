@@ -11,10 +11,13 @@ namespace AddressBookSystem
     public class AddressBook
     {
         private List<Contact> contacts;
-
+        private Dictionary<string, List<Contact>> cityDictionary;
+        private Dictionary<string, List<Contact>> stateDictionary;
         public AddressBook()
         {
             contacts = new List<Contact>();
+            cityDictionary = new Dictionary<string, List<Contact>>();
+            stateDictionary = new Dictionary<string, List<Contact>>();
         }
 
         /*UC-02-Ability to add a new
@@ -29,15 +32,21 @@ namespace AddressBookSystem
             - Duplicate Check is done on Person Name while adding person to Address Book.
             -Use Collection Methods to Search Person by Name for Duplicate Entry
             - Override equals method to check for Duplicate */
-            if (contacts.Contains(contact))
+            contacts.Add(contact);
+
+            if (!cityDictionary.ContainsKey(contact.City))
             {
-                Console.WriteLine("Duplicate contact found. Contact not added.");
+                cityDictionary[contact.City] = new List<Contact>();
             }
-            else
+            cityDictionary[contact.City].Add(contact);
+
+            if (!stateDictionary.ContainsKey(contact.State))
             {
-                contacts.Add(contact);
-                Console.WriteLine("Contact added successfully.");
+                stateDictionary[contact.State] = new List<Contact>();
             }
+            stateDictionary[contact.State].Add(contact);
+
+            Console.WriteLine("Contact added successfully.");
         }
 
         public void DisplayContacts()
@@ -54,6 +63,41 @@ namespace AddressBookSystem
                 contact.Display();
             }
         }
+
+        public void DisplayContactsByCity(string city)
+        {
+            if (cityDictionary.ContainsKey(city))
+            {
+                List<Contact> contactsInCity = cityDictionary[city];
+                Console.WriteLine($"Contacts in {city}:");
+                foreach (var contact in contactsInCity)
+                {
+                    contact.Display();
+                }
+            }
+            else
+            {
+                Console.WriteLine($"No contacts found in {city}.");
+            }
+        }
+
+        public void DisplayContactsByState(string state)
+        {
+            if (stateDictionary.ContainsKey(state))
+            {
+                List<Contact> contactsInState = stateDictionary[state];
+                Console.WriteLine($"Contacts in {state}:");
+                foreach (var contact in contactsInState)
+                {
+                    contact.Display();
+                }
+            }
+            else
+            {
+                Console.WriteLine($"No contacts found in {state}.");
+            }
+        }
+
         //Ability to edit existing contact person using their name
         public void EditContact(string firstName, string lastName)
         {
