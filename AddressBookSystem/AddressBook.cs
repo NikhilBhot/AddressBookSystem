@@ -233,5 +233,68 @@ namespace AddressBookSystem
             }
             return result;
         }
+
+
+
+        public void WriteToFile(string filePath)
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(filePath))
+                {
+                    foreach (var contact in contacts)
+                    {
+                        writer.WriteLine(contact.ToString());
+                    }
+                }
+                Console.WriteLine("Address book written to file successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while writing to the file: {ex.Message}");
+            }
+        }
+
+        public void ReadFromFile(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("File not found.");
+                return;
+            }
+
+            contacts.Clear();
+
+            try
+            {
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        string[] contactData = line.Split(',');
+                        if (contactData.Length == 8)
+                        {
+                            Contact contact = new Contact(
+                                contactData[0],
+                                contactData[1],
+                                contactData[2],
+                                contactData[3],
+                                contactData[4],
+                                contactData[5],
+                                contactData[6],
+                                contactData[7]
+                            );
+                            contacts.Add(contact);
+                        }
+                    }
+                }
+                Console.WriteLine("Address book loaded from file successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while reading from the file: {ex.Message}");
+            }
+        }
     }
 }

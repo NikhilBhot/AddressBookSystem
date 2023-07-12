@@ -140,8 +140,10 @@ namespace AddressBookSystem
                 Console.WriteLine("2. Display Contacts");
                 Console.WriteLine("3. Edit Contact");
                 Console.WriteLine("4. Delete Contact");
-                Console.WriteLine("5. Exit");
-                Console.WriteLine("6.Reurn To Add AddressBook Or Select Address Book");
+                Console.WriteLine("5. Write to File");
+                Console.WriteLine("6. Read from File");
+                Console.WriteLine("7. Exit");
+                Console.WriteLine("8.Reurn To Add AddressBook Or Select Address Book");
                 Console.Write("Enter your choice: ");
                 string choice = Console.ReadLine();
 
@@ -188,12 +190,22 @@ namespace AddressBookSystem
                         string deleteLastName = Console.ReadLine();
                         addressBook.DeleteContact(deleteFirstName, deleteLastName);
                         break;
-
                     case "5":
+                        //Console.Write("Enter file path to write: ");
+                        string writeFilePath = "E:\\Bridgelabs\\AddressBookSystem\\AddressBookSystem\\Contact.txt";
+                        addressBook.WriteToFile(writeFilePath);
+                        break;
+
+                    case "6":
+                        //Console.Write("Enter file path to read: ");
+                        string readFilePath = "E:\\Bridgelabs\\AddressBookSystem\\AddressBookSystem\\Contact.txt";
+                        addressBook.ReadFromFile(readFilePath);
+                        break;
+                    case "7":
                         Environment.Exit(0);
                         
                         break;
-                    case "6":
+                    case "8":
                         Main();
                         break;
 
