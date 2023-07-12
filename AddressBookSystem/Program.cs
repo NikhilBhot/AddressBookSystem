@@ -142,8 +142,10 @@ namespace AddressBookSystem
                 Console.WriteLine("4. Delete Contact");
                 Console.WriteLine("5. Write to File");
                 Console.WriteLine("6. Read from File");
-                Console.WriteLine("7. Exit");
-                Console.WriteLine("8.Reurn To Add AddressBook Or Select Address Book");
+                Console.WriteLine("7. Write to CSV File");
+                Console.WriteLine("8. Read from CSV File");
+                Console.WriteLine("9. Exit");
+                Console.WriteLine("10.Reurn To Add AddressBook Or Select Address Book");
                 Console.Write("Enter your choice: ");
                 string choice = Console.ReadLine();
 
@@ -202,10 +204,21 @@ namespace AddressBookSystem
                         addressBook.ReadFromFile(readFilePath);
                         break;
                     case "7":
+                        //Console.Write("Enter file path to write: ");
+                        string writeCSVFilePath = "E:\\Bridgelabs\\AddressBookSystem\\AddressBookSystem\\Contact.csv";
+                        addressBook.WriteToFile(writeCSVFilePath);
+                        break;
+
+                    case "8":
+                        //Console.Write("Enter file path to read: ");
+                        string readCSVFilePath = "E:\\Bridgelabs\\AddressBookSystem\\AddressBookSystem\\Contact.csv";
+                        addressBook.ReadFromFile(readCSVFilePath);
+                        break;
+                    case "9":
                         Environment.Exit(0);
                         
                         break;
-                    case "8":
+                    case "10":
                         Main();
                         break;
 

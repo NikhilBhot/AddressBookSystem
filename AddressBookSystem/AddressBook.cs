@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CsvHelper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -288,6 +289,48 @@ namespace AddressBookSystem
                             contacts.Add(contact);
                         }
                     }
+                }
+                Console.WriteLine("Address book loaded from file successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while reading from the file: {ex.Message}");
+            }
+        }
+
+        public void WriteToCSVFile(string filePath)
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(filePath))
+                using (CsvWriter csvWriter = new CsvWriter(writer, System.Globalization.CultureInfo.InvariantCulture))
+                {
+                    csvWriter.WriteRecords(contacts);
+                }
+                Console.WriteLine("Address book written to file successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while writing to the file: {ex.Message}");
+            }
+        }
+
+        public void ReadFromCSVFile(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("File not found.");
+                return;
+            }
+
+            contacts.Clear();
+
+            try
+            {
+                using (StreamReader reader = new StreamReader(filePath))
+                using (CsvReader csvReader = new CsvReader(reader, System.Globalization.CultureInfo.InvariantCulture))
+                {
+                    contacts = csvReader.GetRecords<Contact>().ToList();
                 }
                 Console.WriteLine("Address book loaded from file successfully.");
             }
