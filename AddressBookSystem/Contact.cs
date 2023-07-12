@@ -10,7 +10,7 @@ namespace AddressBookSystem
     Book with first and last names, address,
     city, state, zip, phone number and email...
     */
-    public class Contact
+    public class Contact :IComparable<Contact>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -70,6 +70,20 @@ namespace AddressBookSystem
         public bool MatchesState(string state)
         {
             return string.Equals(State, state, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public int CompareTo(Contact other)
+        {
+            // Compare based on the person's full name
+            string fullName = $"{FirstName} {LastName}";
+            string otherFullName = $"{other.FirstName} {other.LastName}";
+            return string.Compare(fullName, otherFullName, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public override string ToString()
+        {
+            // Return a string representation of the contact
+            return $"{FirstName} {LastName}\nAddress: {Address}\nCity: {City}\nState: {State}\nZip: {Zip}\nPhone: {PhoneNumber}\nEmail: {Email}\n";
         }
     }
 }
